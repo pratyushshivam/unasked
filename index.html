@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Nothing may be fetched from anywhere but this folder, and nothing may be sent at all. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f2eee5" />
+    <title>Unasked: what any website knows about you without asking</title>
+    <meta
+      name="description"
+      content="A letter your browser writes about you. Everything a website can learn without asking, read on your own device. Nothing is sent anywhere."
+    />
+    <link rel="canonical" href="https://pratyushshivam.github.io/unasked/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Unasked" />
+    <meta
+      property="og:description"
+      content="You told this page nothing. It read this anyway. What any website can learn about you without asking, computed on your own device."
+    />
+    <meta property="og:url" content="https://pratyushshivam.github.io/unasked/" />
+    <meta property="og:image" content="https://pratyushshivam.github.io/unasked/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/src/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/src/ui/style.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip" href="#letter">Skip to the letter</a>
+
+    <header class="bar">
+      <a class="bar__name" href="#top">Unasked</a>
+      <p class="bar__pledge"><i class="pulse" aria-hidden="true"></i><span>Nothing <span class="wide">on this page </span>leaves your device</span></p>
+      <p class="bar__count" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18"><circle class="bar__track" cx="12" cy="12" r="9" /><circle class="bar__ring" id="bar-ring" cx="12" cy="12" r="9" pathLength="100" /></svg>
+        <span id="bar-count">00 / 20</span>
+      </p>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="cap hero__cap"><span>A letter from your browser</span><span id="dateline"></span></p>
+        <h1 class="hero__title" aria-label="You told this page nothing. It read this anyway.">
+          <span class="w" aria-hidden="true"><span>You</span></span>
+          <span class="w" aria-hidden="true"><span>told</span></span>
+          <span class="w" aria-hidden="true"><span>this</span></span>
+          <span class="w" aria-hidden="true"><span>page</span></span>
+          <span class="w" aria-hidden="true"><span><em>nothing.</em></span></span>
+          <br />
+          <span class="w" aria-hidden="true"><span>It</span></span>
+          <span class="w" aria-hidden="true"><span>read</span></span>
+          <span class="w" aria-hidden="true"><span>this</span></span>
+          <span class="w" aria-hidden="true"><span>anyway.</span></span>
+        </h1>
+        <div class="hero__foot">
+          <p class="lede">
+            No clicks, no permission prompts, no cookies. Each line below was read from your browser as the page opened,
+            the way any website can read it.
+          </p>
+          <p class="pledge">
+            <i class="pulse" aria-hidden="true"></i>
+            <span><strong>Nothing leaves your device.</strong> This page has no server, no analytics and no third-party code. Your browser is under orders to block anything it tries to send. <a href="#proof">Check it yourself</a></span>
+          </p>
+        </div>
+      </section>
+
+      <section class="letter" id="letter" aria-labelledby="salute">
+        <div class="letter__head">
+          <p class="salute" id="salute">Dear visitor,</p>
+          <p class="cap hint" id="hint"><span>Turn any line over to see how I know</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a8 8 0 0 1 14.2-4.6L20 8.5M20 4v4.5h-4.5" /><path d="M20 13a8 8 0 0 1-14.2 4.6L4 15.5M4 20v-4.5h4.5" /></svg></p>
+        </div>
+        <ol class="lines" id="lines"></ol>
+        <noscript><p class="lede">This letter is written by a script running in your browser, and scripts are switched off. That is, as it happens, the strongest protection on this page.</p></noscript>
+        <div class="ps">
+          <p class="cap">One thing I cannot show you</p>
+          <p>
+            Your IP address. Every server you connect to sees it, and with it your rough location and your provider. This
+            page has no server of its own to read it back to you, but the host that delivered these files saw it, as any
+            host does.
+          </p>
+        </div>
+        <p class="sign">Yours, without asking,<br /><strong>your browser</strong></p>
+      </section>
+
+      <section class="sum" id="sum" aria-labelledby="sum-title">
+        <div class="wrap">
+          <p class="cap">The sum of it</p>
+          <h2 id="sum-title">No single line names you. <em>Together</em> they might.</h2>
+          <p class="lede sum__lede">
+            Millions of people share your time zone. Millions share your screen. A fingerprint asks for everything at once,
+            and each answer splits the crowd again, until the group giving all the same answers as you is very small.
+          </p>
+
+          <div class="mark" id="mark">
+            <ul class="mark__legend mark__legend--a" id="legend-a"></ul>
+            <figure class="mark__figure">
+              <svg id="mark-svg" viewBox="-250 -250 500 500" role="img" aria-labelledby="mark-desc"></svg>
+              <figcaption id="mark-desc">
+                <span class="mark__hash" id="mark-hash" aria-live="polite"></span>
+                <span class="mark__note" id="mark-note"></span>
+              </figcaption>
+            </figure>
+            <ul class="mark__legend mark__legend--b" id="legend-b"></ul>
+            <div class="mark__dots" id="mark-dots" aria-hidden="true"></div>
+          </div>
+
+          <p class="key">
+            <span><i class="key__solid"></i>holds still between visits</span>
+            <span><i class="key__thin"></i>changes by the minute</span>
+            <span><i class="key__dots"></i>your browser refused</span>
+          </p>
+
+          <dl class="stats" id="stats"></dl>
+
+          <div class="cols">
+            <div>
+              <h3>How distinctive is it? I cannot say.</h3>
+              <p>
+                To tell you that you are one in so many, I would need everybody else's answers to set beside yours, and
+                that means collecting them. This page collects nothing, so it has no crowd to measure you against. A
+                page that does give you a number has sent your answers to a server that holds other people's.
+              </p>
+              <p>
+                Two measurements that were made with consent: in 2010, 83.6% of 470,161 browsers tested by the
+                <a href="https://coveryourtracks.eff.org/static/browser-uniqueness.pdf" rel="noreferrer">EFF</a> had a
+                fingerprint no other browser shared. In 2018, among 2,067,942 visitors to one large French website,
+                <a href="https://doi.org/10.1145/3178876.3186097" rel="noreferrer">33.6%</a> did. The answer depends on
+                the crowd and on the questions asked.
+              </p>
+            </div>
+            <div>
+              <h3>What can be said: bits.</h3>
+              <p>
+                An answer that half of all browsers give is worth one bit: it halves the crowd. An answer one browser in
+                a thousand gives is worth about ten. When answers are unrelated their bits add up, and 33 are enough to
+                tell apart everyone alive.
+              </p>
+              <p>
+                Real answers overlap. A phone's screen predicts its processor, a language predicts a time zone. So the
+                true total is less than the sum, and only a real crowd can measure it.
+              </p>
+            </div>
+          </div>
+
+          <div class="bits" id="bits">
+            <ol class="bits__row" id="bits-row" aria-hidden="true"></ol>
+            <p class="bits__line">
+              <span class="bits__n"><span id="bits-count">33</span> yes-or-no answers</span>
+              <span class="bits__eq">tell apart</span>
+              <span class="bits__big" id="bits-people">8,589,934,592</span>
+              <span class="bits__eq">people. There are about 8.2 billion of us.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="do" aria-labelledby="do-title">
+        <div class="wrap">
+          <p class="cap">What you can do</p>
+          <h2 id="do-title">Be one of many.</h2>
+          <ol class="steps">
+            <li>
+              <h3>Turn on the protection your browser has.</h3>
+              <p>
+                Most current browsers have a setting against fingerprinting, often under privacy or tracking. It works in
+                one of two ways: by giving every user the same answers, or by adding a little noise to each. Either one
+                weakens the mark above.
+              </p>
+            </li>
+            <li>
+              <h3>Block the scripts that ask.</h3>
+              <p>
+                Fingerprinting is done by code, and most of it comes from a small number of third parties. Tracker
+                blocking stops that code before it runs, which beats disguising the answers afterwards.
+              </p>
+            </li>
+            <li>
+              <h3>Customise less than you would like.</h3>
+              <p>
+                Extra fonts, unusual settings and rare extensions each split you from the crowd. The same holds for
+                privacy tweaks that few people use. Defaults are a disguise.
+              </p>
+            </li>
+            <li>
+              <h3>Keep separate things in separate browsers.</h3>
+              <p>
+                A fingerprint links what one browser does. A second browser, or a second profile on a second device, has
+                a different one. Use that for the parts of your life you want kept apart.
+              </p>
+            </li>
+            <li>
+              <h3>Stay up to date.</h3>
+              <p>
+                Browsers keep closing these windows: frozen labels, rounded numbers, trimmed lists, removed APIs. Several
+                lines of this letter were more revealing a few years ago. Updates carry that work.
+              </p>
+            </li>
+            <li>
+              <h3>Know what the usual tools do not do.</h3>
+              <p>
+                A private window forgets cookies and history but answers these questions the same way. A VPN hides your
+                IP address and nothing else on this page. Clearing cookies does not change a fingerprint.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="proof" id="proof" aria-labelledby="proof-title">
+        <div class="wrap">
+          <p class="cap">The promise, and how to check it</p>
+          <h2 id="proof-title">Nothing left your device.</h2>
+          <div class="cols">
+            <div>
+              <p>
+                Everything above was worked out by your own browser and shown only to you. There is no server behind this
+                page, no analytics, no fonts or scripts from anyone else. You do not have to take my word for it.
+              </p>
+              <ol class="checks">
+                <li><span><strong>Watch the network.</strong> Open your browser's developer tools, choose Network and reload. You will see this page's own files arrive, then nothing, however long you stay and whatever you turn over.</span></li>
+                <li><span><strong>Read the policy.</strong> View the page source. The Content-Security-Policy at the top says <code>connect-src 'none'</code>: your browser itself refuses any attempt by this page to send data anywhere.</span></li>
+                <li><span><strong>Pull the plug.</strong> Once the page has loaded, switch your connection off. Every line still turns over and the mark still draws.</span></li>
+                <li><span><strong>Read the code.</strong> It is <a href="https://github.com/pratyushshivam/unasked" rel="noreferrer">public</a>, short, and has no dependencies at run time.</span></li>
+              </ol>
+              <p class="fine">
+                The one party that did learn something is the host. GitHub Pages delivered these files and, like every web
+                server, saw your IP address and your browser's label when it did. No page can avoid that.
+              </p>
+            </div>
+            <div class="receipt" aria-live="off">
+              <p class="cap">Your browser's own record of what this page fetched</p>
+              <ul class="receipt__list" id="receipt"></ul>
+              <p class="receipt__total"><span>Sent or fetched since the page opened</span><strong id="receipt-since">0</strong></p>
+              <p class="fine" id="receipt-note"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <p class="foot__name">Unasked</p>
+        <p>
+          Built by <a href="https://www.pratyushshivam.com/" rel="noreferrer">Pratyush Shivam</a>.
+          <a href="https://github.com/pratyushshivam/unasked" rel="noreferrer">Source on GitHub</a>, MIT licence. Set in Geist,
+          served from this page.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
