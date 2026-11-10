@@ -94,8 +94,8 @@ describe("the device line", () => {
 describe("the browser line", () => {
   it("gives the full version when offered, and keeps only the major one for the mark", () => {
     const f = describeBrowser({ ua: desktop.ua, hints: desktop.hints, brave: false });
-    expect(text(f.parts)).toBe("Your browser is Google Chrome, version 140.0.7300.10.");
-    expect(f.stable).toBe("Google Chrome|140");
+    expect(text(f.parts)).toBe("Your browser is Google Chrome, version 140.0.7300.10, built on the Blink engine.");
+    expect(f.stable).toBe("Google Chrome|140|Blink");
   });
 
   it("recognises a browser that announces itself another way", () => {
