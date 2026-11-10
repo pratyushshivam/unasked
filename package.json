@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "readme": "node scripts/build-readme-art.mjs"
+    "readme": "node --experimental-strip-types --no-warnings scripts/build-readme-art.mjs",
+    "shoot": "node scripts/shoot.mjs"
   },
   "devDependencies": {
     "geist": "^1.9.2",
