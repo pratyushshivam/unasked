@@ -29,19 +29,19 @@ function drawRing(ring: Ring): { group: SVGGElement; path: SVGPathElement } {
   return { group, path };
 }
 
-export function buildMark(findings: Finding[], summary: Summary): void {
+export function buildMark(findings: Finding[], summary: Summary): Promise<{ hex: string; sha: boolean }> {
   const figure = byId<SVGSVGElement>("mark-svg");
   const holder = byId("mark");
   const dots = byId("mark-dots");
   const hashLine = byId("mark-hash");
   const note = byId("mark-note");
-  const rings = buildRings(findings, { inner: 30, outer: 236 });
+  const rings = buildRings(findings, { inner: 26, outer: 240 });
   const half = Math.ceil(findings.length / 2);
 
   const title = svg("title");
   title.textContent = `A mark of ${findings.length} concentric rings, one for each thing this page read from your browser.`;
   figure.append(title);
-  const core = svg("circle", { class: "core", r: 9 });
+  const core = svg("circle", { class: "core", r: 8 });
   figure.append(core);
 
   const paths: SVGPathElement[] = [];
@@ -89,7 +89,7 @@ export function buildMark(findings: Finding[], summary: Summary): void {
     const cx = centre.left + centre.width / 2 - frame.left;
     const cy = centre.top + centre.height / 2 - frame.top;
     const flights = labels.map(async (label, i) => {
-      await wait(i * 120);
+      await wait(i * 70);
       const number = label.querySelector("i") ?? label;
       const from = number.getBoundingClientRect();
       const x = from.left + from.width / 2 - frame.left;
@@ -123,4 +123,5 @@ export function buildMark(findings: Finding[], summary: Summary): void {
   };
 
   onceVisible(figure, () => void play(), 0.45);
+  return digestReady;
 }

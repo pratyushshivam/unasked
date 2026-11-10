@@ -2,10 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- Nothing may be fetched from anywhere but this folder, and nothing may be sent at all. -->
+    <!--
+      Nothing may be loaded from anywhere but this folder. Nothing may be sent anywhere, with one
+      exception: a single address lookup at ipinfo.io, made only if the visitor presses the button for it.
+    -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src https://ipinfo.io; form-action 'none'; base-uri 'none'"
     />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,14 +17,14 @@
     <title>Unasked: what any website knows about you without asking</title>
     <meta
       name="description"
-      content="A letter your browser writes about you. Everything a website can learn without asking, read on your own device. Nothing is sent anywhere."
+      content="The file your browser hands to every website: your machine, your software, where you are and what you are doing right now. Read on your own device. Nothing is sent anywhere unless you ask."
     />
     <link rel="canonical" href="https://pratyushshivam.github.io/unasked/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Unasked" />
     <meta
       property="og:description"
-      content="You told this page nothing. It read this anyway. What any website can learn about you without asking, computed on your own device."
+      content="You told this page nothing. It read this anyway. The file any website can build on you without asking, worked out on your own device."
     />
     <meta property="og:url" content="https://pratyushshivam.github.io/unasked/" />
     <meta property="og:image" content="https://pratyushshivam.github.io/unasked/og.jpg" />
@@ -32,70 +35,111 @@
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <a class="skip" href="#letter">Skip to the letter</a>
+    <a class="skip" href="#machine">Skip to the file</a>
+
+    <div class="pre" id="pre" aria-hidden="true">
+      <div class="pre__inner">
+        <div class="pre__row"><span class="pre__name">Unasked</span></div>
+        <div class="pre__row pre__row--meta"><span>Reading what your browser gives away</span></div>
+        <div class="pre__bar"><i id="pre-bar"></i></div>
+        <div class="pre__row pre__row--count"><span id="pre-count">00</span></div>
+      </div>
+    </div>
+
+    <canvas class="scene" id="scene" aria-hidden="true"></canvas>
+    <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
 
     <header class="bar">
       <a class="bar__name" href="#top">Unasked</a>
-      <p class="bar__pledge"><i class="pulse" aria-hidden="true"></i><span>Nothing <span class="wide">on this page </span>leaves your device</span></p>
+      <p class="bar__pledge"><i class="pulse" aria-hidden="true"></i><span>Nothing leaves your device <span class="wide">unless you ask</span></span></p>
       <p class="bar__count" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="18" height="18"><circle class="bar__track" cx="12" cy="12" r="9" /><circle class="bar__ring" id="bar-ring" cx="12" cy="12" r="9" pathLength="100" /></svg>
-        <span id="bar-count">00 / 20</span>
+        <span id="bar-count">00 / 00</span>
       </p>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <p class="cap hero__cap"><span>A letter from your browser</span><span id="dateline"></span></p>
-        <h1 class="hero__title" aria-label="You told this page nothing. It read this anyway.">
-          <span class="w" aria-hidden="true"><span>You</span></span>
-          <span class="w" aria-hidden="true"><span>told</span></span>
-          <span class="w" aria-hidden="true"><span>this</span></span>
-          <span class="w" aria-hidden="true"><span>page</span></span>
-          <span class="w" aria-hidden="true"><span><em>nothing.</em></span></span>
-          <br />
-          <span class="w" aria-hidden="true"><span>It</span></span>
-          <span class="w" aria-hidden="true"><span>read</span></span>
-          <span class="w" aria-hidden="true"><span>this</span></span>
-          <span class="w" aria-hidden="true"><span>anyway.</span></span>
-        </h1>
+      <section class="hero" data-theme="paper">
+        <p class="cap hero__cap"><span>The file your browser keeps on you</span><span id="dateline"></span></p>
+        <h1 class="hero__title" id="hero-title">You told this page<br /><em>nothing.</em><br />It read this anyway.</h1>
         <div class="hero__foot">
-          <p class="lede">
-            No clicks, no permission prompts, no cookies. Each line below was read from your browser as the page opened,
-            the way any website can read it.
+          <p class="lede" data-lines>
+            No clicks, no permission prompts, no cookies. Every line below was read from your browser as the page
+            opened, the way any website can read it. Then it watches what you do.
           </p>
-          <p class="pledge">
+          <p class="pledge" data-rise>
             <i class="pulse" aria-hidden="true"></i>
-            <span><strong>Nothing leaves your device.</strong> This page has no server, no analytics and no third-party code. Your browser is under orders to block anything it tries to send. <a href="#proof">Check it yourself</a></span>
+            <span><strong>Nothing leaves your device.</strong> No server, no analytics, no third-party code. One button, further down, makes a single request if you press it. Nothing else ever does. <a href="#proof">Check it yourself</a></span>
           </p>
         </div>
+        <ol class="toc" id="toc" aria-label="Chapters"></ol>
       </section>
 
-      <section class="letter" id="letter" aria-labelledby="salute">
-        <div class="letter__head">
-          <p class="salute" id="salute">Dear visitor,</p>
-          <p class="cap hint" id="hint"><span>Turn any line over to see how I know</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a8 8 0 0 1 14.2-4.6L20 8.5M20 4v4.5h-4.5" /><path d="M20 13a8 8 0 0 1-14.2 4.6L4 15.5M4 20v-4.5h4.5" /></svg></p>
-        </div>
-        <ol class="lines" id="lines"></ol>
-        <noscript><p class="lede">This letter is written by a script running in your browser, and scripts are switched off. That is, as it happens, the strongest protection on this page.</p></noscript>
-        <div class="ps">
-          <p class="cap">One thing I cannot show you</p>
-          <p>
-            Your IP address. Every server you connect to sees it, and with it your rough location and your provider. This
-            page has no server of its own to read it back to you, but the host that delivered these files saw it, as any
-            host does.
-          </p>
-        </div>
-        <p class="sign">Yours, without asking,<br /><strong>your browser</strong></p>
-      </section>
+      <div id="chapters"></div>
+      <noscript><p class="lede noscript">This file is written by a script running in your browser, and scripts are switched off. That is, as it happens, the strongest protection on this page.</p></noscript>
 
-      <section class="sum" id="sum" aria-labelledby="sum-title">
+      <section class="chap live" id="live" data-theme="ink" aria-labelledby="live-title">
         <div class="wrap">
-          <p class="cap">The sum of it</p>
-          <h2 id="sum-title">No single line names you. <em>Together</em> they might.</h2>
-          <p class="lede sum__lede">
-            Millions of people share your time zone. Millions share your screen. A fingerprint asks for everything at once,
-            and each answer splits the crowd again, until the group giving all the same answers as you is very small.
-          </p>
+          <header class="chap__head">
+            <p class="cap chap__no"><span>07</span><span>Live</span></p>
+            <h2 class="chap__title" id="live-title" data-kinetic>What you are doing right now</h2>
+            <p class="chap__lede" data-lines>
+              Everything above is what you have. This is what you do. A page receives every movement of your pointer,
+              every scroll, every key, every time you look away. Recording scripts send it home. This one only shows you.
+            </p>
+          </header>
+          <div class="live__grid">
+            <figure class="trace" data-rise>
+              <canvas id="trace" aria-label="A drawing of the path your pointer has taken since you arrived"></canvas>
+              <figcaption class="cap"><span>Your pointer, since you arrived</span><span id="trace-note">waiting for you to move</span></figcaption>
+            </figure>
+            <dl class="tiles" id="tiles"></dl>
+          </div>
+          <div class="typing" data-rise>
+            <label class="cap" for="type-box">Type anything. I keep no letters, only the rhythm.</label>
+            <input id="type-box" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="The quick brown fox" />
+            <dl class="tiles tiles--row" id="type-tiles"></dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="chap ask" id="ask" data-theme="paper" aria-labelledby="ask-title">
+        <div class="wrap">
+          <header class="chap__head">
+            <p class="cap chap__no"><span>08</span><span>Only if you ask</span></p>
+            <h2 class="chap__title" id="ask-title" data-kinetic>The one thing I cannot read</h2>
+            <p class="chap__lede" data-lines>
+              Your address on the internet. Every site you visit sees it, and from it your town and your provider. I
+              cannot, because this page has no server. To show you, I would have to ask one for you.
+            </p>
+          </header>
+          <div class="ask__body" data-rise>
+            <div class="ask__deal">
+              <p>
+                Press the button and this page makes <strong>one request</strong> to <strong>ipinfo.io</strong>, a company that
+                looks up addresses. It will see your address, as any site does, and nothing from this file. The answer is
+                shown here and kept nowhere. Do not press it and nothing is ever sent.
+              </p>
+              <button class="btn magnetic" id="ask-button" type="button" data-cursor="Ask"><span>Look up my address</span><i>one request, to ipinfo.io</i></button>
+            </div>
+            <div class="ask__answer" id="ask-answer" aria-live="polite">
+              <p class="cap">Requests to anyone but this site, so far</p>
+              <p class="ask__zero" id="ask-zero">0</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chap sum" id="sum" data-theme="ink" aria-labelledby="sum-title">
+        <div class="wrap">
+          <header class="chap__head">
+            <p class="cap chap__no"><span>09</span><span>The sum of it</span></p>
+            <h2 class="chap__title" id="sum-title" data-kinetic>No single line names you. Together they might.</h2>
+            <p class="chap__lede" data-lines>
+              Millions of people share your time zone. Millions share your screen. A fingerprint asks for everything at
+              once, and each answer splits the crowd again, until the group giving all the same answers as you is very small.
+            </p>
+          </header>
 
           <div class="mark" id="mark">
             <ul class="mark__legend mark__legend--a" id="legend-a"></ul>
@@ -116,10 +160,22 @@
             <span><i class="key__dots"></i>your browser refused</span>
           </p>
 
+          <div class="known" id="known" data-rise>
+            <div>
+              <p class="cap">Next time</p>
+              <p class="known__headline" id="known-headline"></p>
+              <p class="known__detail" id="known-detail"></p>
+            </div>
+            <div class="known__side">
+              <p class="fine" id="known-note"></p>
+              <button class="btn btn--line magnetic" id="known-erase" type="button" data-cursor="Erase"><span>Erase the note</span><i>forget this browser</i></button>
+            </div>
+          </div>
+
           <dl class="stats" id="stats"></dl>
 
           <div class="cols">
-            <div>
+            <div data-rise>
               <h3>How distinctive is it? I cannot say.</h3>
               <p>
                 To tell you that you are one in so many, I would need everybody else's answers to set beside yours, and
@@ -134,7 +190,7 @@
                 the crowd and on the questions asked.
               </p>
             </div>
-            <div>
+            <div data-rise>
               <h3>What can be said: bits.</h3>
               <p>
                 An answer that half of all browsers give is worth one bit: it halves the crowd. An answer one browser in
@@ -160,80 +216,86 @@
         </div>
       </section>
 
-      <section class="do" aria-labelledby="do-title">
+      <section class="chap do" data-theme="paper" aria-labelledby="do-title">
         <div class="wrap">
-          <p class="cap">What you can do</p>
-          <h2 id="do-title">Be one of many.</h2>
+          <header class="chap__head">
+            <p class="cap chap__no"><span>10</span><span>What you can do</span></p>
+            <h2 class="chap__title" id="do-title" data-kinetic>Be one of many.</h2>
+          </header>
           <ol class="steps">
-            <li>
+            <li data-rise>
               <h3>Turn on the protection your browser has.</h3>
               <p>
                 Most current browsers have a setting against fingerprinting, often under privacy or tracking. It works in
-                one of two ways: by giving every user the same answers, or by adding a little noise to each. Either one
-                weakens the mark above.
+                one of two ways: by giving every user the same answers, or by adding a little noise to each. Every line
+                above marked "kept back" is that protection working.
               </p>
             </li>
-            <li>
+            <li data-rise>
               <h3>Block the scripts that ask.</h3>
               <p>
-                Fingerprinting is done by code, and most of it comes from a small number of third parties. Tracker
-                blocking stops that code before it runs, which beats disguising the answers afterwards.
+                Fingerprinting and session recording are done by code, and most of it comes from a small number of third
+                parties. Tracker blocking stops that code before it runs, which beats disguising the answers afterwards.
               </p>
             </li>
-            <li>
+            <li data-rise>
               <h3>Customise less than you would like.</h3>
               <p>
                 Extra fonts, unusual settings and rare extensions each split you from the crowd. The same holds for
                 privacy tweaks that few people use. Defaults are a disguise.
               </p>
             </li>
-            <li>
+            <li data-rise>
               <h3>Keep separate things in separate browsers.</h3>
               <p>
                 A fingerprint links what one browser does. A second browser, or a second profile on a second device, has
                 a different one. Use that for the parts of your life you want kept apart.
               </p>
             </li>
-            <li>
+            <li data-rise>
               <h3>Stay up to date.</h3>
               <p>
                 Browsers keep closing these windows: frozen labels, rounded numbers, trimmed lists, removed APIs. Several
-                lines of this letter were more revealing a few years ago. Updates carry that work.
+                lines of this file were more revealing a few years ago. Updates carry that work.
               </p>
             </li>
-            <li>
+            <li data-rise>
               <h3>Know what the usual tools do not do.</h3>
               <p>
                 A private window forgets cookies and history but answers these questions the same way. A VPN hides your
-                IP address and nothing else on this page. Clearing cookies does not change a fingerprint.
+                address and nothing else on this page. Clearing cookies does not change a fingerprint.
               </p>
             </li>
           </ol>
         </div>
       </section>
 
-      <section class="proof" id="proof" aria-labelledby="proof-title">
+      <section class="chap proof" id="proof" data-theme="paper" aria-labelledby="proof-title">
         <div class="wrap">
-          <p class="cap">The promise, and how to check it</p>
-          <h2 id="proof-title">Nothing left your device.</h2>
+          <header class="chap__head">
+            <p class="cap chap__no"><span>11</span><span>The promise, and how to check it</span></p>
+            <h2 class="chap__title" id="proof-title" data-kinetic>Nothing left your device.</h2>
+          </header>
           <div class="cols">
-            <div>
-              <p>
+            <div data-rise>
+              <p class="proof__lede">
                 Everything above was worked out by your own browser and shown only to you. There is no server behind this
                 page, no analytics, no fonts or scripts from anyone else. You do not have to take my word for it.
               </p>
               <ol class="checks">
-                <li><span><strong>Watch the network.</strong> Open your browser's developer tools, choose Network and reload. You will see this page's own files arrive, then nothing, however long you stay and whatever you turn over.</span></li>
-                <li><span><strong>Read the policy.</strong> View the page source. The Content-Security-Policy at the top says <code>connect-src 'none'</code>: your browser itself refuses any attempt by this page to send data anywhere.</span></li>
-                <li><span><strong>Pull the plug.</strong> Once the page has loaded, switch your connection off. Every line still turns over and the mark still draws.</span></li>
-                <li><span><strong>Read the code.</strong> It is <a href="https://github.com/pratyushshivam/unasked" rel="noreferrer">public</a>, short, and has no dependencies at run time.</span></li>
+                <li><span><strong>Watch the network.</strong> Open your browser's developer tools, choose Network and reload. You will see this page's own files arrive, then nothing, however long you stay, unless you press the address button.</span></li>
+                <li><span><strong>Read the policy.</strong> View the page source. The Content-Security-Policy at the top names one outside address, <code>ipinfo.io</code>, and no other. Your browser refuses anything else this page tries to send.</span></li>
+                <li><span><strong>Pull the plug.</strong> Once the page has loaded, switch your connection off. Every line still turns over, the live figures still count and the mark still draws.</span></li>
+                <li><span><strong>Read the code.</strong> It is <a href="https://github.com/pratyushshivam/unasked" rel="noreferrer">public</a>, and every library it uses is bundled into the page.</span></li>
               </ol>
               <p class="fine">
-                The one party that did learn something is the host. GitHub Pages delivered these files and, like every web
-                server, saw your IP address and your browser's label when it did. No page can avoid that.
+                Two things to be exact about. The host, GitHub Pages, delivered these files and, like every web server, saw
+                your address and your browser's label when it did. And the page keeps one small note in this browser's own
+                storage so that it can show you what being recognised looks like. It is never sent, and the erase button
+                above removes it.
               </p>
             </div>
-            <div class="receipt" aria-live="off">
+            <div class="receipt" aria-live="off" data-rise>
               <p class="cap">Your browser's own record of what this page fetched</p>
               <ul class="receipt__list" id="receipt"></ul>
               <p class="receipt__total"><span>Sent or fetched since the page opened</span><strong id="receipt-since">0</strong></p>
