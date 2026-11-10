@@ -23,6 +23,8 @@ All of it is worked out on your own device. **Nothing is sent anywhere**, and th
 
 <a href="https://pratyushshivam.github.io/unasked/"><img src="assets/screens/letter.gif" width="100%" alt="The letter typing itself line by line, a line turning over to show how the page knows, then twenty signals travelling into the centre of a mark of concentric rings"></a>
 
+<p align="center"><sub>The letter typing itself, a line turning over, and the ending. The whole page in one 40 second take: <a href="assets/film.mp4">film.mp4</a></sub></p>
+
 <table>
 <tr>
 <td width="50%" valign="top"><img src="assets/screens/letter.jpg" width="100%" alt="The letter: numbered lines such as 'You are reading this on a computer running Windows 11', with the third line turned over to show 'How I know' and 'What reduces it'"><br><sub><b>The letter.</b> Line three is turned over.</sub></td>
@@ -50,6 +52,11 @@ All of it is worked out on your own device. **Nothing is sent anywhere**, and th
 | **Stack** | TypeScript and Vite. No framework and no dependencies at run time. Signal modules are pure and tested |
 
 ## What it reads
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/line-dark.svg">
+  <img src="assets/line-light.svg" width="100%" alt="One line of the letter typing itself: 'Your clock says 14:32 on a Wednesday. Your time zone is Europe/Lisbon, UTC+0.' It then turns over to show how the page knows and what reduces it.">
+</picture>
 
 Every line states only what the browser actually reported. Where a browser hides a value, the line says so, and the mark draws that ring as a dotted one. Nothing is guessed.
 
