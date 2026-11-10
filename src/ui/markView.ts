@@ -68,8 +68,9 @@ export function buildMark(findings: Finding[], summary: Summary): void {
     note.textContent = sha
       ? `The first 64 of 256 bits of a SHA-256 hash of your ${summary.steady} steady answers, worked out here and shown only here. Reload and it should stay the same. If it changes, your browser is adding noise, which is protection at work.`
       : `A 64-bit hash of your ${summary.steady} steady answers, worked out here and shown only here. Reload and it should stay the same. If it changes, your browser is adding noise, which is protection at work.`;
-    note.classList.add("is-on");
   };
+  // The words are in place from the start, unseen, so the figure does not move when they appear.
+  writeNote(Boolean(globalThis.crypto?.subtle));
 
   const play = async (): Promise<void> => {
     const { hex, sha } = await digestReady;
@@ -80,6 +81,7 @@ export function buildMark(findings: Finding[], summary: Summary): void {
       figure.classList.add("is-live");
       hashLine.textContent = shown;
       writeNote(sha);
+      note.classList.add("is-on");
       return;
     }
     const frame = holder.getBoundingClientRect();
@@ -117,6 +119,7 @@ export function buildMark(findings: Finding[], summary: Summary): void {
       await wait(45);
     }
     writeNote(sha);
+    note.classList.add("is-on");
   };
 
   onceVisible(figure, () => void play(), 0.45);
