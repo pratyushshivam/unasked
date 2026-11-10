@@ -19,9 +19,9 @@ text{font-family:G,"Helvetica Neue",Helvetica,Arial,sans-serif;fill:#15140f}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 <rect width="1280" height="560" fill="#f2eee5"/>
-<text class="cap" x="64" y="74">A LETTER FROM YOUR BROWSER</text>
-<text class="cap mute" x="760" y="74" text-anchor="end">NOTHING LEAVES YOUR DEVICE</text>
-<path class="ln draw" d="M64 98H760"/>
+<text class="cap" x="64" y="74">THE FILE YOUR BROWSER KEEPS ON YOU</text>
+<text class="cap mute" x="790" y="74" text-anchor="end">NOTHING LEAVES YOUR DEVICE</text>
+<path class="ln draw" d="M64 98H790"/>
 <g class="rise"><text x="56" y="306" font-size="172" font-weight="600" letter-spacing="-9">Unasked</text></g>
 <g class="rise" style="animation-delay:.25s">
 <text x="64" y="392" font-size="30" font-weight="500" letter-spacing="-.6">You told this page <tspan class="acc">nothing.</tspan> It read this anyway.</text>

@@ -25,8 +25,9 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - name: The built page must not name any other host in its policy, scripts or styles
+      - name: The built page may contact one named address, once, and nothing else
         run: |
-          grep -q "connect-src 'none'" dist/index.html
-          ! grep -rEoh "(src|href)=\"https?://[^\"]+\.(js|css|woff2?)\"" dist/index.html
-          ! grep -rEl "fetch\(|XMLHttpRequest|sendBeacon|WebSocket|EventSource" dist/assets/*.js
+          grep -q "connect-src https://ipinfo.io;" dist/index.html
+          test "$(grep -o "fetch(" dist/assets/*.js | wc -l)" -eq 1
+          ! grep -E "XMLHttpRequest|sendBeacon|WebSocket|EventSource" dist/assets/*.js
+          ! grep -oE "https?://[a-zA-Z0-9./-]+" dist/assets/*.js | grep -vE "w3.org|gsap.com|ipinfo.io/json"

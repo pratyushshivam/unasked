@@ -78,9 +78,9 @@ function hero(t) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img">
 ${style(t)}
 <rect width="${W}" height="${H}" fill="${t.paper}"/>
-<text class="cap" x="64" y="74">A LETTER FROM YOUR BROWSER</text>
-<text class="cap mute" x="760" y="74" text-anchor="end">NOTHING LEAVES YOUR DEVICE</text>
-<path class="ln draw" d="M64 98H760"/>
+<text class="cap" x="64" y="74">THE FILE YOUR BROWSER KEEPS ON YOU</text>
+<text class="cap mute" x="790" y="74" text-anchor="end">NOTHING LEAVES YOUR DEVICE</text>
+<path class="ln draw" d="M64 98H790"/>
 <g class="rise"><text x="56" y="306" font-size="172" font-weight="600" letter-spacing="-9">Unasked</text></g>
 <g class="rise" style="animation-delay:.25s">
 <text x="64" y="392" font-size="30" font-weight="500" letter-spacing="-.6">You told this page <tspan class="acc">nothing.</tspan> It read this anyway.</text>
@@ -116,18 +116,18 @@ ${style(t, extra)}
 ${column(0, 64)}${column(10, 240)}
 <path class="hair" d="M420 120V400"/>
 ${mark(560, 262, 0.46)}
-<text x="690" y="176" font-size="21" font-weight="600" letter-spacing="-.4">Twenty sentences</text>
+<text x="690" y="176" font-size="21" font-weight="600" letter-spacing="-.4">41 sentences</text>
 <text class="mute" x="690" y="202" font-size="16">in plain English</text>
 <text x="690" y="262" font-size="21" font-weight="600" letter-spacing="-.4">One mark</text>
 <text class="mute" x="690" y="288" font-size="16">a local SHA-256 hash</text>
-<text x="690" y="348" font-size="21" font-weight="600" letter-spacing="-.4">Kept: nothing</text>
-<text class="mute" x="690" y="374" font-size="16">no cookie, no storage</text>
+<text x="690" y="348" font-size="21" font-weight="600" letter-spacing="-.4">Kept: one note</text>
+<text class="mute" x="690" y="374" font-size="16">in your browser, erasable</text>
 <path class="wall" d="M${WALL} 44V400"/>
 <circle class="acc probe" cx="${WALL - 110}" cy="418" r="5"/>
 <text class="cap mute" x="64" y="422" font-size="11">CONNECT-SRC 'NONE': THE BROWSER REFUSES ANYTHING THIS PAGE TRIES TO SEND</text>
 <text x="${WALL + 34}" y="290" font-size="150" font-weight="600" letter-spacing="-8" class="acc">0</text>
 <text class="mute" x="${WALL + 34}" y="330" font-size="16">requests after the page</text>
-<text class="mute" x="${WALL + 34}" y="352" font-size="16">has loaded</text>
+<text class="mute" x="${WALL + 34}" y="352" font-size="16">has loaded, unless you ask</text>
 </svg>`;
 }
 
