@@ -1,0 +1,71 @@
+import type { Snapshot } from "../src/profile";
+
+/** A plain desktop browser that answers everything. No real machine: every value is made up. */
+export const desktop: Snapshot = {
+  ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+  hints: {
+    brands: [
+      { brand: "Not;A=Brand", version: "24" },
+      { brand: "Chromium", version: "140" },
+      { brand: "Google Chrome", version: "140" },
+    ],
+    mobile: false,
+    platform: "Windows",
+    platformVersion: "15.0.0",
+    architecture: "x86",
+    bitness: "64",
+    model: "",
+    fullVersionList: [
+      { brand: "Not;A=Brand", version: "24.0.0.0" },
+      { brand: "Chromium", version: "140.0.7300.10" },
+      { brand: "Google Chrome", version: "140.0.7300.10" },
+    ],
+  },
+  brave: false,
+  screen: { width: 1536, height: 864, availWidth: 1536, availHeight: 816, colorDepth: 24, dpr: 1.25 },
+  window: { innerWidth: 1280, innerHeight: 720 },
+  time: { zone: "Europe/Lisbon", offsetMinutes: 0, now: Date.UTC(2026, 10, 4, 14, 32) },
+  languages: { tags: ["en-GB", "pt-PT", "fr"], names: ["English (United Kingdom)", "Portuguese (Portugal)", "French"] },
+  formats: { locale: "en-GB", calendar: "gregory", date: "31/12/2026", time: "21:30", number: "1,234,567.89" },
+  appearance: { scheme: "dark", reducedMotion: false, contrast: null, forcedColors: false, gamut: "p3", hdr: false },
+  input: { maxTouchPoints: 0, pointer: "fine", keys: { KeyQ: "q", KeyW: "w", KeyY: "y" } },
+  hardware: { threads: 8, memoryGB: 8 },
+  graphics: { renderer: "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00003EA0) Direct3D11 vs_5_0 ps_5_0, D3D11)" },
+  storage: { quotaBytes: 10 * 2 ** 30 },
+  battery: { level: 0.82, charging: false },
+  connection: { online: true, info: { effectiveType: "4g", downlink: 10, rtt: 50, saveData: false } },
+  fonts: { probed: 52, found: ["Segoe UI", "Calibri", "Arial", "Fira Code"] },
+  voices: [
+    { name: "Microsoft Hazel", lang: "en-GB" },
+    { name: "Microsoft Helia", lang: "pt-PT" },
+  ],
+  canvas: { hash: "c41e9a02", repeatable: true },
+  audio: { sum: 124.04347527516074 },
+  privacy: { cookies: true, doNotTrack: null, globalPrivacyControl: undefined, webdriver: false },
+  arrival: { referrer: "https://example.org/a/page", historyLength: 3 },
+};
+
+/** A browser with fingerprinting protection: it answers little, and blurs what it does answer. */
+export const guarded: Snapshot = {
+  ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:140.0) Gecko/20100101 Firefox/140.0",
+  hints: null,
+  brave: false,
+  screen: { width: 1400, height: 900, availWidth: 1400, availHeight: 900, colorDepth: 24, dpr: 1 },
+  window: { innerWidth: 1400, innerHeight: 900 },
+  time: { zone: "UTC", offsetMinutes: 0, now: Date.UTC(2026, 10, 4, 14, 32) },
+  languages: { tags: ["en-US"], names: ["English (United States)"] },
+  formats: { locale: "en-US", calendar: "gregory", date: "12/31/2026", time: "9:30 PM", number: "1,234,567.89" },
+  appearance: { scheme: "light", reducedMotion: false, contrast: null, forcedColors: false, gamut: "srgb", hdr: null },
+  input: { maxTouchPoints: 0, pointer: "fine", keys: null },
+  hardware: { threads: 2, memoryGB: null },
+  graphics: { renderer: null },
+  storage: { quotaBytes: null },
+  battery: null,
+  connection: { online: true, info: null },
+  fonts: { probed: 52, found: [] },
+  voices: [],
+  canvas: { hash: "00000000", repeatable: false },
+  audio: null,
+  privacy: { cookies: true, doNotTrack: "1", globalPrivacyControl: true, webdriver: false },
+  arrival: { referrer: "", historyLength: 1 },
+};
